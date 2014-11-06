@@ -41,6 +41,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <zlib.h>
+#include "zlib_container.h"
 
 #ifdef WOFF_MOZILLA_CLIENT /* define this when building as part of Gecko */
 # include "prmem.h"
@@ -251,6 +252,9 @@ woffEncode(const uint8_t * sfntData, uint32_t sfntLen,
  */
 #define WOFFDIR ((woffDirEntry *) (woffData + sizeof(woffHeader)))
 
+  ZopfliOptions options;
+  ZopfliInitOptions(&options);
+
   for (order = 0; order < numTables; ++order) {
     uLong sourceLen, destLen;
     uint32_t sourceOffset;
@@ -277,20 +281,26 @@ woffEncode(const uint8_t * sfntData, uint32_t sfntLen,
     if (sourceLen > sfntLen || sourceOffset > sfntLen - sourceLen) {
       FAIL(eWOFF_invalid);
     }
-    destLen = LONGALIGN(compressBound(sourceLen));
-    woffData = (uint8_t *) realloc(woffData, tableOffset + destLen);
-    if (!woffData) {
-      FAIL(eWOFF_out_of_memory);
-    }
+    //destLen = LONGALIGN(compressBound(sourceLen));
+    //woffData = (uint8_t *) realloc(woffData, tableOffset + destLen);
+    //if (!woffData) {
+    //  FAIL(eWOFF_out_of_memory);
+    //}
+
+    uint8_t* dest = 0;
+
+    ZopfliZlibCompress(&options, (const uint8_t *) (sfntData + sourceOffset), sourceLen, &dest, &destLen);
 
     /* do the compression directly into the WOFF data block */
-    if (compress2((Bytef *) (woffData + tableOffset), &destLen,
-                  (const Bytef *) (sfntData + sourceOffset),
-                  sourceLen, 9) != Z_OK) {
-      FAIL(eWOFF_compression_failure);
-    }
+    //if (compress2((Bytef *) (woffData + tableOffset), &destLen,
+    //              (const Bytef *) (sfntData + sourceOffset),
+    //              sourceLen, 9) != Z_OK) {
+    //  FAIL(eWOFF_compression_failure);
+    //}
     if (destLen < sourceLen) {
       /* compressed table was smaller */
+      woffData = (uint8_t *) realloc(woffData, tableOffset + LONGALIGN(destLen));
+      memcpy(woffData + tableOffset, dest, destLen);
       tableOffset += destLen;
       WOFFDIR[newIndex].compLen = READ32BE(destLen);
     } else {
@@ -309,6 +319,8 @@ woffEncode(const uint8_t * sfntData, uint32_t sfntLen,
       tableOffset += sourceLen;
       WOFFDIR[newIndex].compLen = WOFFDIR[newIndex].origLen;
     }
+
+    free(dest);
 
     /* we always realloc woffData to a long-aligned size, so this is safe */
     while ((tableOffset & 3) != 0) {

@@ -1,16 +1,12 @@
+FILES=blocksplitter.c cache.c deflate.c gzip_container.c hash.c katajainen.c lz77.c squeeze.c tree.c util.c zlib_container.c zopfli_lib.c woff.c
+
 all: sfnt2woff woff2sfnt
 
-sfnt2woff: sfnt2woff.o woff.o woff.h Makefile
-	$(CC) $(LDFLAGS) -o $@ $< woff.o -lz
+sfnt2woff: sfnt2woff.c $(FILES) Makefile
+	$(CC) $(LDFLAGS) $(FILES) $< -o $@ -lz
 
-woff2sfnt: woff2sfnt.o woff.o woff.h Makefile
-	$(CC) $(LDFLAGS) -o $@ $< woff.o -lz
-
-sfnt2woff.o: sfnt2woff.c woff.h Makefile
-
-woff2sfnt.o: woff2sfnt.c woff.h Makefile
-
-woff.o: woff.c woff.h woff-private.h Makefile
+woff2sfnt: woff2sfnt.c $(FILES) Makefile
+	$(CC) $(LDFLAGS) $(FILES) $< -o $@ -lz
 
 clean:
 	$(RM) -r *.o *.dSYM
