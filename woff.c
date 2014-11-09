@@ -540,16 +540,10 @@ woffSetMetadata(const uint8_t * woffData, uint32_t * woffLen,
   }
 
   if (metaData && metaLen > 0) {
-    compLen = compressBound(metaLen);
-    compData = malloc(compLen);
-    if (!compData) {
-      FAIL(eWOFF_out_of_memory);
-    }
+    ZopfliOptions options;
+    ZopfliInitOptions(&options);
 
-    if (compress2((Bytef *) compData, &compLen,
-                  (const Bytef *) metaData, metaLen, 9) != Z_OK) {
-      FAIL(eWOFF_compression_failure);
-    }
+    ZopfliZlibCompress(&options, (const uint8_t *) metaData, metaLen, &compData, &compLen);
   }
 
   woffData = rebuildWoff(woffData, woffLen,
