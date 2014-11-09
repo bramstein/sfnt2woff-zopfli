@@ -274,7 +274,6 @@ woffEncode(const uint8_t * sfntData, uint32_t sfntLen,
     WOFFDIR[newIndex].origLen = sfntDir[oldIndex].length;
     WOFFDIR[newIndex].offset = READ32BE(tableOffset);
 
-    /* allocate enough space for upper bound of compressed size */
     sourceOffset = READ32BE(sfntDir[oldIndex].offset);
     if ((sourceOffset & 3) != 0) {
       status |= eWOFF_warn_misaligned_table;
