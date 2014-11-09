@@ -258,7 +258,7 @@ woffEncode(const uint8_t * sfntData, uint32_t sfntLen,
   for (order = 0; order < numTables; ++order) {
     uLong sourceLen, destLen = 0;
 
-    uint8_t* dest = 0;
+    uint8_t* dest = NULL;
     uint32_t sourceOffset;
 
     uint16_t oldIndex = tableOrder[order].oldIndex;
