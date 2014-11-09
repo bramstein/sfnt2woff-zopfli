@@ -256,7 +256,9 @@ woffEncode(const uint8_t * sfntData, uint32_t sfntLen,
   ZopfliInitOptions(&options);
 
   for (order = 0; order < numTables; ++order) {
-    uLong sourceLen, destLen;
+    uLong sourceLen, destLen = 0;
+
+    uint8_t* dest = 0;
     uint32_t sourceOffset;
 
     uint16_t oldIndex = tableOrder[order].oldIndex;
@@ -281,22 +283,9 @@ woffEncode(const uint8_t * sfntData, uint32_t sfntLen,
     if (sourceLen > sfntLen || sourceOffset > sfntLen - sourceLen) {
       FAIL(eWOFF_invalid);
     }
-    //destLen = LONGALIGN(compressBound(sourceLen));
-    //woffData = (uint8_t *) realloc(woffData, tableOffset + destLen);
-    //if (!woffData) {
-    //  FAIL(eWOFF_out_of_memory);
-    //}
-
-    uint8_t* dest = 0;
 
     ZopfliZlibCompress(&options, (const uint8_t *) (sfntData + sourceOffset), sourceLen, &dest, &destLen);
 
-    /* do the compression directly into the WOFF data block */
-    //if (compress2((Bytef *) (woffData + tableOffset), &destLen,
-    //              (const Bytef *) (sfntData + sourceOffset),
-    //              sourceLen, 9) != Z_OK) {
-    //  FAIL(eWOFF_compression_failure);
-    //}
     if (destLen < sourceLen) {
       /* compressed table was smaller */
       woffData = (uint8_t *) realloc(woffData, tableOffset + LONGALIGN(destLen));
