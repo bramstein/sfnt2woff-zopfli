@@ -9,4 +9,4 @@ woff2sfnt: woff2sfnt.c $(FILES) Makefile
 	$(CC) $(LDFLAGS) $(FILES) $< -o $@ -lz
 
 clean:
-	$(RM) -r *.o *.dSYM
+	$(RM) -r *.o *.dSYM sfnt2woff woff2sfnt *.gch *.out
