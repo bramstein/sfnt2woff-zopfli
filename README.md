@@ -1,6 +1,6 @@
 # Create WOFF files with Zopfli compression
 
-This is a modified version of the [sfnt2woff utility](https://people.mozilla.org/~jkew/woff/) that uses Zopfli as a compression algorithm instead of zlib. This results in compression gains of, on average, 5-8% compared to regular WOFF files. Zopfli generates compressed output that is compatible with regular zlib compression so the resulting WOFF files can be used everywhere.
+This is a modified version of the [sfnt2woff utility](https://people.mozilla.org/~jkew/woff/) that uses Zopfli as a compression algorithm instead of zlib. This results in compression gains of — on average — 5-8% compared to regular WOFF files. Zopfli generates compressed output that is compatible with regular zlib compression so the resulting WOFF files can be used everywhere.
 
 ##Usage
 
@@ -30,7 +30,7 @@ To compile the utilities, run make:
 
     > make
 
-This will compile two utilities `sfnt2woff` to convert OpenType files to WOFF and `woff2sfnt` to convert WOFF files back to OpenType files. If the build was succesful you can copy the resulting executables to `/usr/local/bin` to make them available on your system.
+This will compile two utilities `sfnt2woff` to convert OpenType files to WOFF and `woff2sfnt` to convert WOFF files back to OpenType files. If the build was succesful you can make them available on your system by copying the resulting executables to `/usr/local/bin` and making them executable (`chmod 755`).
 
 ## Licensing
 
