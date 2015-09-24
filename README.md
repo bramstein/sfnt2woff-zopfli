@@ -6,7 +6,7 @@ This is a modified version of the [sfnt2woff utility](https://people.mozilla.org
 
 To create a WOFF file from an OpenType files:
 
-    > sfnt2woff [-v <maj>.<min>] [-m <metadata.xml>] [-p <private.dat>] <otffile>
+    > sfnt2woff-zopfli [-v <maj>.<min>] [-m <metadata.xml>] [-p <private.dat>] <otffile>
 
 Options:
 
@@ -16,7 +16,7 @@ Options:
 
 To decompress a WOFF file and write the OpenType file to stdout:
 
-    > woff2sfnt [-v | -m | -p] <woff>
+    > woff2sfnt-zopfli [-v | -m | -p] <woff>
 
 Options:
 
@@ -30,7 +30,7 @@ To compile the utilities, run make:
 
     > make
 
-This will compile two utilities `sfnt2woff` to convert OpenType files to WOFF and `woff2sfnt` to convert WOFF files back to OpenType files. If the build was succesful you can make them available on your system by copying the resulting executables to `/usr/local/bin` and making them executable (`chmod 755`).
+This will compile two utilities `sfnt2woff-zopfli` to convert OpenType files to WOFF and `woff2sfnt-zopfli` to convert WOFF files back to OpenType files. If the build was succesful you can make them available on your system by copying the resulting executables to `/usr/local/bin` and making them executable (`chmod 755`).
 
 ## Licensing
 
