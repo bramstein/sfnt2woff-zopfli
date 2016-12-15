@@ -65,6 +65,7 @@ usage(const char * progName)
                   "Options:\n"
                   "    -v <maj>.<min>     set font version number (major and minor, both integers)\n"
                   "    -m <metadata.xml>  include metadata from <metadata.xml> (not validated)\n"
+                  "    -n <iterations>    number of zopfli iterations (default = 15)\n"
                   "    -p <private.dat>   include private data block\n"
                   , progName);
 }
@@ -102,10 +103,11 @@ main(int argc, char * argv[])
   const char * metadataFile = NULL;
   const char * privateFile = NULL;
   unsigned int maj = 0, min = 0;
+  int numiterations = 0;
   uint32_t status = eWOFF_ok;
 
   int opt;
-  while ((opt = getopt(argc, argv, "v:m:p:h")) != -1) {
+  while ((opt = getopt(argc, argv, "v:m:p:n:h")) != -1) {
     switch (opt) {
     case 'v':
       if (sscanf(optarg, "%u.%u", &maj, &min) < 2 || maj > 0xffff || min > 0xffff) {
@@ -118,6 +120,12 @@ main(int argc, char * argv[])
       break;
     case 'p':
       privateFile = optarg;
+      break;
+    case 'n':
+      if (sscanf(optarg, "%u", &numiterations) < 1 || !numiterations || numiterations > 5000) {
+        fprintf(stderr, "# invalid number of iterations - please specify number between 0 and 5000\n");
+        numiterations = 0;
+      }
       break;
     case 'h':
     case '?':
@@ -140,7 +148,7 @@ main(int argc, char * argv[])
   const uint8_t * sfntData = readFile(argv[0], &sfntLen);
 
   uint32_t woffLen;
-  const uint8_t * woffData = woffEncode(sfntData, sfntLen, maj, min, &woffLen, &status);
+  const uint8_t * woffData = woffEncode(sfntData, sfntLen, maj, min, numiterations, &woffLen, &status);
   free((void *)sfntData);
   if (WOFF_FAILURE(status)) {
     reportErr(status);
