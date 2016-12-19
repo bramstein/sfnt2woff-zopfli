@@ -121,7 +121,8 @@ calcChecksum(const sfntDirEntry * dirEntry,
 const uint8_t *
 woffEncode(const uint8_t * sfntData, uint32_t sfntLen,
            uint16_t majorVersion, uint16_t minorVersion,
-           uint32_t * woffLen, uint32_t * pStatus)
+           int32_t numiterations, uint32_t * woffLen,
+           uint32_t * pStatus)
 {
   uint8_t * woffData = NULL;
   tableOrderRec * tableOrder = NULL;
@@ -255,6 +256,9 @@ woffEncode(const uint8_t * sfntData, uint32_t sfntLen,
 
   ZopfliOptions options;
   ZopfliInitOptions(&options);
+  if (numiterations) {
+    options.numiterations = numiterations;
+  }
 
   for (order = 0; order < numTables; ++order) {
     uLong sourceLen, destLen = 0;
@@ -368,7 +372,8 @@ woffEncode(const uint8_t * sfntData, uint32_t sfntLen,
     free(woffData);
     woffData = (uint8_t *) woffEncode(cleanSfnt, sfntLen,
                                       majorVersion, minorVersion,
-                                      &tableOffset, &status);
+                                      numiterations, &tableOffset,
+                                      &status);
     free((void *) cleanSfnt);
     if (WOFF_FAILURE(status)) {
       FAIL(status);

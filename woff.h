@@ -107,7 +107,8 @@ extern "C" {
  */
 const uint8_t * woffEncode(const uint8_t * sfntData, uint32_t sfntLen,
                            uint16_t majorVersion, uint16_t minorVersion,
-                           uint32_t * woffLen, uint32_t * status);
+                           int32_t numiterations, uint32_t * woffLen,
+                           uint32_t * status);
 
 
 /*****************************************************************************
