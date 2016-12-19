@@ -12,6 +12,7 @@ Options:
 
     -v <maj>.<min>     set font version number (major and minor, both integers)
     -m <metadata.xml>  include metadata from <metadata.xml> (not validated)
+    -i <iterations>    number of zopfli iterations (default = 15)
     -p <private.dat>   include private data block
 
 To decompress a WOFF file and write the OpenType file to stdout:
