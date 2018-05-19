@@ -6,13 +6,13 @@ This is a modified version of the [sfnt2woff utility](https://people.mozilla.org
 
 To create a WOFF file from an OpenType files:
 
-    > sfnt2woff-zopfli [-v <maj>.<min>] [-m <metadata.xml>] [-p <private.dat>] <otffile>
+    > sfnt2woff-zopfli [-v <maj>.<min>] [-m <metadata.xml>] [-n <iterations>] [-p <private.dat>] <otffile>
 
 Options:
 
     -v <maj>.<min>     set font version number (major and minor, both integers)
     -m <metadata.xml>  include metadata from <metadata.xml> (not validated)
-    -i <iterations>    number of zopfli iterations (default = 15)
+    -n <iterations>    number of zopfli iterations (default = 15)
     -p <private.dat>   include private data block
 
 To decompress a WOFF file and write the OpenType file to stdout:
@@ -39,4 +39,4 @@ The WOFF portion of the code is taken from [sfnt2woff](https://people.mozilla.or
 
 ## Alternative
 
-You can also use the [ttf2woff tool](http://wizard.ae.krakow.pl/~jb/ttf2woff/), which also converts OpenType files to WOFF using Zopfli, but is exclusively licensed under the GPL.
+You can also use the [ttf2woff tool](http://wizard.ae.krakow.pl/~jb/ttf2woff/), which also converts OpenType files to WOFF using Zopfli, but is exclusively licensed under the GPL.  However it doesn't have a command line option for the number of Zopfli iterations and thus can't create files as small as sfnt2woff-zopfli.
