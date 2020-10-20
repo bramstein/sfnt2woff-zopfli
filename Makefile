@@ -17,19 +17,22 @@ ZOPFLI_LIBS=zopfli/blocksplitter.c \
 # with the empty string to avoid finding bundled Zopfli headers.
 ZOPFLI_CFLAGS=-Izopfli
 
+ZLIB_LIBS=-lz
+ZLIB_CFLAGS=
+
 FILES=woff.c
 
 all: sfnt2woff-zopfli woff2sfnt-zopfli
 
 sfnt2woff-zopfli: sfnt2woff.c $(FILES) Makefile
-	$(CC) $(CPPFLAGS) $(CFLAGS) $(ZOPFLI_CFLAGS) \
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(ZOPFLI_CFLAGS) $(ZLIB_CFLAGS) \
 		$(FILES) $< -o $@ \
-		$(LDFLAGS) $(ZOPFLI_LIBS) -lz -lm
+		$(LDFLAGS) $(ZOPFLI_LIBS) $(ZLIB_LIBS) -lm
 
 woff2sfnt-zopfli: woff2sfnt.c $(FILES) Makefile
-	$(CC) $(CPPFLAGS) $(CFLAGS) $(ZOPFLI_CFLAGS) \
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(ZOPFLI_CFLAGS) $(ZLIB_CFLAGS) \
 		$(FILES) $< -o $@ \
-		$(LDFLAGS) $(ZOPFLI_LIBS) -lz -lm
+		$(LDFLAGS) $(ZOPFLI_LIBS) $(ZLIB_LIBS) -lm
 
 clean:
 	$(RM) -r *.o *.dSYM sfnt2woff-zopfli woff2sfnt-zopfli *.gch *.out
