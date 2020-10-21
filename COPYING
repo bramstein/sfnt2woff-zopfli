@@ -1,0 +1,9 @@
+Sources in the top-level directory belong to, or are based on, the WOFF
+reference implementation originally published at
+http://people.mozilla.org/~jkew/woff/, and are distributed under the terms
+specified in the file LICENSE-WOFF (MPL 1.1/GPL 2.0/LGPL 2.1).
+
+Additionally, the zopfli/ directory contains a bundled copy of Zopfli
+(https://github.com/google/zopfli), distributed under the terms in the file
+LICENSE-ZOPFLI (Apache License 2.0). When this bundled library is used, these
+terms also apply to the compiled software.
