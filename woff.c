@@ -42,7 +42,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <zlib.h>
-#include "zlib_container.h"
+#include "zopfli.h"
 
 #ifdef WOFF_MOZILLA_CLIENT /* define this when building as part of Gecko */
 # include "prmem.h"
@@ -288,7 +288,7 @@ woffEncode(const uint8_t * sfntData, uint32_t sfntLen,
       FAIL(eWOFF_invalid);
     }
 
-    ZopfliZlibCompress(&options, (const uint8_t *) (sfntData + sourceOffset), sourceLen, &dest, &destLen);
+    ZopfliCompress(&options, ZOPFLI_FORMAT_ZLIB, (const uint8_t *) (sfntData + sourceOffset), sourceLen, &dest, &destLen);
 
     if (destLen < sourceLen) {
       /* compressed table was smaller */
@@ -548,7 +548,7 @@ woffSetMetadata(const uint8_t * woffData, uint32_t * woffLen,
     ZopfliOptions options;
     ZopfliInitOptions(&options);
 
-    ZopfliZlibCompress(&options, (const uint8_t *) metaData, metaLen, &compData, &compLen);
+    ZopfliCompress(&options, ZOPFLI_FORMAT_ZLIB, (const uint8_t *) metaData, metaLen, &compData, &compLen);
   }
 
   woffData = rebuildWoff(woffData, woffLen,
