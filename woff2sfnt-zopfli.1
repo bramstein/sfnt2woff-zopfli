@@ -1,0 +1,39 @@
+.TH woff2sfnt\-zopfli "1" "November 2020" "woff2sfnt-zopfli" "User Commands"
+.SH NAME
+woff2sfnt\-zopfli \- decode WOFF file
+.IR woff ,
+writing OpenType data to stdout
+.SH SYNOPSIS
+woff2sfnt\-zopfli
+.RB [ \-v \ |\  \-m \ |\  \-p ]
+.I woff
+.SH DESCRIPTION
+.PP
+Decodes WOFF file
+.IR woff ,
+writing OpenType data to
+.BR stdout .
+.PP
+This is a modified version of the
+.BR woff2sfnt (1)
+utility that uses Zopfli as a compression algorithm instead of
+.BR zlib (3).
+.SH OPTIONS
+.TP
+.B \-v
+write font version to
+.B stdout
+.TP
+.B \-m
+write WOFF metadata block to
+.B stdout
+.TP
+.B \-p
+write private data block to
+.B stdout
+.SH NOTES
+Only one of \fB\-v\fR, \fB\-m\fR, \fB\-p\fR may be used at a time.
+.SH "SEE ALSO"
+.BR sfnt2woff-zopfli (1),
+.BR woff2sfnt (1),
+.BR sfnt2woff (1)
