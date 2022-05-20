@@ -1,0 +1,46 @@
+.TH sfnt2woff\-zopfli "1" "November 2020" "sfnt2woff-zopfli" "User Commands"
+.SH NAME
+sfnt2woff\-zopfli \- package OpenType
+.I otffile
+as WOFF, creating
+.IR otffile .woff
+.SH SYNOPSIS
+sfnt2woff\-zopfli
+.RB [ \-v
+.IR maj . min ]
+.RB [ \-m
+.IR metadata.xml ]
+.RB [ \-p
+.IR private.dat ]
+.I otffile
+.SH DESCRIPTION
+.PP
+Packages OpenType
+.I otffile
+as WOFF, creating
+.IR otffile .woff.
+.PP
+This is a modified version of the
+.BR sfnt2woff (1)
+utility that uses Zopfli
+as a compression algorithm instead of
+.BR zlib (3).
+.SH OPTIONS
+.TP
+\fB\-v\fR \fImaj\fR.\fImin
+set font version number (major and minor, both integers)
+.TP
+\fB\-m\fR \fImetadata.xml
+include metadata from
+.I metadata.xml
+(not validated)
+.TP
+\fB\-n\fR \fIiterations
+number of zopfli iterations (default = 15)
+.TP
+\fB\-p\fR \fIprivate.dat
+include private data block
+.SH "SEE ALSO"
+.BR woff2sfnt-zopfli (1),
+.BR sfnt2woff (1),
+.BR woff2sfnt (1)
