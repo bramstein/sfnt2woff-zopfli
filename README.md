@@ -35,7 +35,7 @@ This will compile two utilities `sfnt2woff-zopfli` to convert OpenType files to 
 
 ## Licensing
 
-The WOFF portion of the code is taken from [sfnt2woff](https://people.mozilla.org/~jkew/woff/), which is licensed under the MPL/GPL/LGPL. The [Zopfli implementation](https://code.google.com/p/zopfli/) is licensed under the Apache License. My modifications to `woff.c` are also licensed under the MPL/GPL/LGPL.
+The WOFF portion of the code is taken from [sfnt2woff](https://web.archive.org/web/20170630235618/https://people-mozilla.org/~jkew/woff/), which is licensed under the MPL/GPL/LGPL. The [Zopfli implementation](https://code.google.com/p/zopfli/) is licensed under the Apache License. My modifications to `woff.c` are also licensed under the MPL/GPL/LGPL.
 
 ## Alternative
 
