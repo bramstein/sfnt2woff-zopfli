@@ -39,4 +39,4 @@ The WOFF portion of the code is taken from [sfnt2woff](https://web.archive.org/w
 
 ## Alternative
 
-You can also use the [ttf2woff tool](http://wizard.ae.krakow.pl/~jb/ttf2woff/), which also converts OpenType files to WOFF using Zopfli, but is exclusively licensed under the GPL.  However it doesn't have a command line option for the number of Zopfli iterations and thus can't create files as small as sfnt2woff-zopfli.
+You can also use the [ttf2woff tool](https://torinak.com/~jb/ttf2woff/), which also converts OpenType files to WOFF using Zopfli, but is exclusively licensed under the GPL.  However it doesn't have a command line option for the number of Zopfli iterations and thus can't create files as small as sfnt2woff-zopfli.
