@@ -359,6 +359,7 @@ woffEncode(const uint8_t * sfntData, uint32_t sfntLen,
   newHeader->privLen = 0;
 
   free(tableOrder);
+  tableOrder = 0;
 
   if ((status & eWOFF_warn_checksum_mismatch) != 0) {
     /* The original font had checksum errors, so we now decode our WOFF data
